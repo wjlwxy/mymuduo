@@ -41,7 +41,7 @@ private:
     do                                                  \
     {                                                   \
         Logger &logger = Logger::instance();            \
-        logger.SetLogLevel(INFO);                       \
+        logger.setLogLevel(INFO);                       \
         char c[1024] = {0};                             \
         snprintf(c, 1024, logmsgformat, ##__VA_ARGS__); \
         logger.log(c);                                  \
@@ -52,7 +52,7 @@ private:
     do                                                  \
     {                                                   \
         Logger &logger = Logger::instance();            \
-        logger.SetLogLevel(WARNING);                    \
+        logger.setLogLevel(WARNING);                    \
         char c[1024] = {0};                             \
         snprintf(c, 1024, logmsgformat, ##__VA_ARGS__); \
         logger.log(c);                                  \
@@ -62,7 +62,7 @@ private:
     do                                                  \
     {                                                   \
         Logger &logger = Logger::instance();            \
-        logger.SetLogLevel(ERROR);                      \
+        logger.setLogLevel(ERROR);                      \
         char c[1024] = {0};                             \
         snprintf(c, 1024, logmsgformat, ##__VA_ARGS__); \
         logger.log(c);                                  \
@@ -72,10 +72,11 @@ private:
     do                                                  \
     {                                                   \
         Logger &logger = Logger::instance();            \
-        logger.SetLogLevel(FATAL);                      \
+        logger.setLogLevel(FATAL);                      \
         char c[1024] = {0};                             \
         snprintf(c, 1024, logmsgformat, ##__VA_ARGS__); \
         logger.log(c);                                  \
+        exit(-1);                                       \
     } while (0);
 
 #ifdef MUdUO_DEBUG
@@ -83,7 +84,7 @@ private:
     do                                                  \
     {                                                   \
         Logger &logger = Logger::instance();            \
-        logger.SetLogLevel(DEBUG);                      \
+        logger.setLogLevel(DEBUG);                      \
         char c[1024] = {0};                             \
         snprintf(c, 1024, logmsgformat, ##__VA_ARGS__); \
         logger.log(c);                                  \

@@ -8,7 +8,7 @@
 class EventLoop;
 
 /*
- Channel 理解为通道，封装了sockfd和其甘心去的event，如EPOLLIN、EPOLLOUT事件
+ Channel 理解为通道，封装了sockfd和其感兴趣的event，如EPOLLIN、EPOLLOUT事件
 */
 class Channel : noncopyable
 {
@@ -39,13 +39,33 @@ public:
     bool isNoneEvent() const { return events_ == KNoneEvent; }
     bool isWriting() const { return events_ & kWriteEvent; }
     bool isReading() const { return events_ & kReadEvent; }
-    
+
     // 注册fd想要的事件状态
-    void enableReading() { events_ |= kReadEvent; update(); }
-    void disableReading() { events_ &= ~kReadEvent;  update();}
-    void enableWriting() { events_ |= kWriteEvent; update(); }
-    void disableWriting() { events_ &= ~kWriteEvent; update(); }
-    void disableAll() { events_ = KNoneEvent; update(); }
+    void enableReading()
+    {
+        events_ |= kReadEvent;
+        update();
+    }
+    void disableReading()
+    {
+        events_ &= ~kReadEvent;
+        update();
+    }
+    void enableWriting()
+    {
+        events_ |= kWriteEvent;
+        update();
+    }
+    void disableWriting()
+    {
+        events_ &= ~kWriteEvent;
+        update();
+    }
+    void disableAll()
+    {
+        events_ = KNoneEvent;
+        update();
+    }
 
     int index() { return index_; }
     void set_index(int index) { index_ = index; }
@@ -66,6 +86,7 @@ private:
     const int fd_;    // fd, Poller监听的对象
     int events_;      // 注册fd感兴趣的事件
     int index_;
+    int revents_; // 实际发生的事件
 
     std::weak_ptr<void> tie_;
     bool tied_;
