@@ -157,4 +157,6 @@ CMakeFiles/mymuduo.dir/DefaultPoller.o: \
  /usr/include/c++/11/bits/basic_ios.tcc \
  /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/istream \
  /usr/include/c++/11/bits/istream.tcc /home/wj/code/mymuduo/noncopyable.h \
- /usr/include/c++/11/stdlib.h
+ /home/wj/code/mymuduo/EpollPoller.h \
+ /usr/include/x86_64-linux-gnu/sys/epoll.h \
+ /usr/include/x86_64-linux-gnu/bits/epoll.h /usr/include/c++/11/stdlib.h

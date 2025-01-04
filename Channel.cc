@@ -1,6 +1,7 @@
 #include "Channel.h"
 #include "Logger.h"
 #include <sys/epoll.h>
+#include "EventLoop.h"
 
 const int KNoneEvent = 0;
 const int kReadEvent = EPOLLIN | EPOLLPRI;
@@ -32,14 +33,14 @@ void Channel::update()
 {
     // 通过 channel 所属的EventLoop，调用poller的相应方法，注册fd的events事件
     /*add code ...*/
-    // loop_->updateChannel(this);
+    loop_->updateChannel(this);
 }
 
 // 在channel所属的EventLoop中，调用poller的removeChannel()方法，从Poller中移除当前channel
 void Channel::remove()
 {
     // add code ...
-    // loop_->removeChannel(this);
+    loop_->removeChannel(this);
 }
 
 // fd 得到poller通知以后，处理事件的

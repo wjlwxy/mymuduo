@@ -66,7 +66,7 @@ void EPollPoller::updateChannel(Channel *channel)
     {
         if (index == kNew)
         {
-            int fd = channel->fd();
+            int fd = channel->fd(); // 唤醒所用的fd也将在此处被获取，并在之后注册到epoll中
             channels_[fd] = channel;
         }
 

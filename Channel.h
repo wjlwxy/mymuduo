@@ -33,7 +33,11 @@ public:
 
     int fd() const { return fd_; }
     int events() const { return events_; }
-    int set_revents(int revents) { events_ = revents; }
+    int set_revents(int revents)
+    {
+        events_ = revents;
+        return events_; // 不确定是否是返回此值，根据调用情况再看
+    }
 
     // 返回fd当前的事件状态
     bool isNoneEvent() const { return events_ == KNoneEvent; }
