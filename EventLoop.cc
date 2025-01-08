@@ -70,7 +70,7 @@ void EventLoop::loop()
     while (!quit_)
     {
         activeChannels_.clear();
-        pollReturnTime_ = poller_->poll(kPollTimeMs, &activeChannels_); // 唤醒了又怎么跳过此处的阻塞呢？
+        pollReturnTime_ = poller_->poll(kPollTimeMs, &activeChannels_); // 底层会调用epoll_wait
         for (Channel *channel : activeChannels_)
         {
             // Poller监听哪些channel发生事件了，然后上报给EventLoop，通知channel处理相应的事件

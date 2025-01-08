@@ -9,6 +9,8 @@
 #include "EventLoopThreadPool.h"
 #include "noncopyable.h"
 #include "Callbacks.h"
+#include "TcpConnection.h"
+#include "Buffer.h"
 
 #include <functional>
 #include <string>

@@ -3,9 +3,9 @@
 #include <sys/epoll.h>
 #include "EventLoop.h"
 
-const int KNoneEvent = 0;
-const int kReadEvent = EPOLLIN | EPOLLPRI;
-const int kWriteEvent = EPOLLOUT;
+const int Channel::KNoneEvent = 0;
+const int Channel::kReadEvent = EPOLLIN | EPOLLPRI;
+const int Channel::kWriteEvent = EPOLLOUT;
 
 // EventLoop: ChannelList Poller
 Channel::Channel(EventLoop *loop, int fd)
@@ -22,6 +22,7 @@ Channel::~Channel()
 {
 }
 
+// channel的tie方法什么时候调用过？一个TcpConnection新连接创建的时候  tie_为TcpConnection对象的弱智能指针
 void Channel::tie(const std::shared_ptr<void> &obj)
 {
     tie_ = obj;
