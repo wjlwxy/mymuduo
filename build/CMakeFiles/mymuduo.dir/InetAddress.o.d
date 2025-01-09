@@ -142,5 +142,4 @@ CMakeFiles/mymuduo.dir/InetAddress.o: \
  /usr/include/x86_64-linux-gnu/asm/sockios.h \
  /usr/include/asm-generic/sockios.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_osockaddr.h \
- /usr/include/x86_64-linux-gnu/bits/in.h \
- /home/wj/code/mymuduo/noncopyable.h /usr/include/strings.h
+ /usr/include/x86_64-linux-gnu/bits/in.h /usr/include/strings.h

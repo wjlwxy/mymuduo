@@ -180,5 +180,4 @@ CMakeFiles/mymuduo.dir/EpollPoller.o: \
  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
- /usr/include/linux/close_range.h /usr/include/string.h \
- /usr/include/strings.h
+ /usr/include/linux/close_range.h /usr/include/strings.h

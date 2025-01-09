@@ -13,7 +13,7 @@ public:
     ~EPollPoller() override;
 
     // 重写基类Poller的抽象方法
-    Timestamp poll(int timeout, ChannelList *activeChannels) override;
+    Timestamp poll(int timeoutMs, ChannelList *activeChannels) override;
     void updateChannel(Channel *channel) override;
     void removeChannel(Channel *channel) override;
 
@@ -23,7 +23,7 @@ private:
     void fillActiveChannels(int numEvents, ChannelList *activeChannels) const;
     // 更新channel通道
     void update(int operation, Channel *channel);
-    
+
     using EventList = std::vector<epoll_event>;
 
     int epollfd_;

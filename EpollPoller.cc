@@ -3,7 +3,7 @@
 #include "Channel.h"
 #include <unistd.h>
 #include <errno.h>
-#include <string.h>
+#include <strings.h>
 
 const int kNew = -1;    // 表示一个channel刚刚创建
 const int kAdded = 1;   // 表示一个channel已经被添加到epoll中  重点是epoll，之后才会根据这个来改变channelmap
@@ -11,7 +11,7 @@ const int kDeleted = 2; // 表示一个channel已经从epoll中删除
 
 EPollPoller::EPollPoller(EventLoop *loop)
     : Poller(loop),
-      epollfd_(epoll_create1(EPOLL_CLOEXEC)),
+      epollfd_(::epoll_create1(EPOLL_CLOEXEC)),
       events_(kInitEventListSize) // EventList events_(kInitEventListSize); vector构造函数，预留空间
 {
     if (epollfd_ < 0)
@@ -30,7 +30,7 @@ Timestamp EPollPoller::poll(int timeoutMs, ChannelList *activeChannels)
     // 防止影响运行效率，使用LOG_DEBUG应该更为合适
     LOG_INFO("func=%s => fd total count:%ld\n", __FUNCTION__, channels_.size());
 
-    int numEvents = ::epoll_wait(epollfd_, &*events_.begin(), static_cast<int>(events_.size()), timeoutMs); // &*中的*很可能是运算符重载，虽然也是取到值，但不直接通过地址
+    int numEvents = ::epoll_wait(epollfd_, &*events_.begin(), static_cast<int>(events_.size()), timeoutMs); // &*中的*是运算符重载，虽然也是取到值，但不直接通过地址
     int saveErrno = errno;
     Timestamp now(Timestamp::now());
     if (numEvents > 0)
@@ -109,8 +109,9 @@ void EPollPoller::update(int operation, Channel *channel)
     bzero(&event, sizeof event);
     event.events = channel->events();
     int fd = channel->fd();
-    event.data.ptr = channel;
-    event.data.fd = fd;
+    event.data.ptr = static_cast<void *>(channel);
+    // event.data.fd = fd; // epoll_event中data为union，不应该存放fd，否则会导致channel被覆盖，只能存一项
+    printf("*** fd=%d event.data.ptr=%p channel=%p  operation=%d completed!\n", fd, event.data.ptr, channel, operation);
     if (::epoll_ctl(epollfd_, operation, fd, &event) < 0) // <0 表示失败
     {
         if (operation == EPOLL_CTL_DEL)
@@ -121,6 +122,10 @@ void EPollPoller::update(int operation, Channel *channel)
         {
             LOG_FATAL("epoll_ctl add/mod error:%d\n", errno);
         }
+    }
+    else
+    {
+        printf("$$$ fd=%d event.data.ptr=%p channel=%p  operation=%d completed!\n", fd, event.data.ptr, channel, operation);
     }
 }
 

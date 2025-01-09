@@ -69,7 +69,7 @@ void TcpServer::newConnection(int sockfd, const InetAddress &peerAddr)
 {
     // 轮询算法，选择一个subLoop，来管理channel
     EventLoop *ioLoop = threadPool_->getNextLoop();
-    char buf[64];
+    char buf[64] = {0};
     snprintf(buf, sizeof buf, "-%s#%d", ipPort_.c_str(), ++nextConnId_);
     std::string connName = name_ + buf;
 

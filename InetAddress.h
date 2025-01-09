@@ -4,8 +4,6 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
-#include "noncopyable.h"
-
 // 封装socket地址类型
 class InetAddress
 {

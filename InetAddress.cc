@@ -13,7 +13,7 @@ InetAddress::InetAddress(uint16_t port, std::string ip) // 默认值在声明和
 
 std::string InetAddress::toIp() const
 {
-    char buf[64];
+    char buf[64] = {0};
     ::inet_ntop(AF_INET, &addr_.sin_addr, buf, sizeof buf); // 将网络字节序的IP地址转换为字符串
     return buf;
 }
