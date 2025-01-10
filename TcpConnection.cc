@@ -209,7 +209,7 @@ void TcpConnection::handleWrite()
             outputBuffer_.retrieve(n); // 写完更新一下Buffer里的索引位
             if (outputBuffer_.readableBytes() == 0)
             {
-                channel_->disableWriting();
+                channel_->disableWriting(); // 写完后为防止LT持续触发可写，注销epollout事件
                 if (writeCompleteCallback_)
                 {
                     // 唤醒loop_对应的thread线程，执行回调  不过正常情况下，肯定是在loop所在线程的

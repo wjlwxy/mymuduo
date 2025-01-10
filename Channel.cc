@@ -51,7 +51,7 @@ void Channel::handleEvent(Timestamp receiveTime)
     if (tied_)
     {
         std::shared_ptr<void> guard = tie_.lock();
-        if (guard)
+        if (guard) // 一旦提升成功，必须等此智能指针被析构，也就是出作用域，才能析构TcpConnection对象资源
         {
             handleEventWithGuard(receiveTime);
         }

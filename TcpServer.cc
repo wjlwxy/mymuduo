@@ -64,7 +64,7 @@ void TcpServer::start()
     }
 }
 
-// 有一个新的客户端的连接，acceptor会执行这个回调操作
+// 有一个新的客户端的连接，acceptor会执行这个回调操作  channel => acceptor => Tcpserver
 void TcpServer::newConnection(int sockfd, const InetAddress &peerAddr)
 {
     // 轮询算法，选择一个subLoop，来管理channel
@@ -96,6 +96,7 @@ void TcpServer::newConnection(int sockfd, const InetAddress &peerAddr)
     conn->setConnectionCallback(connectionCallback_);
     conn->setMessageCallback(messageCallback_);
     conn->setWriteCompleteCallback(writeCompleteCallback_);
+    /* ****************   并没有设置高水位 ******************* */
 
     // 设置了如何关闭连接的回调  conn->shutdown()  归根结底会调用此函数
     conn->setCloseCallback(
